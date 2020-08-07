@@ -5,6 +5,7 @@ import api from '../services/api-rbac';
 interface IAuthState {
   token: string;
   user: User;
+  userLevel: number | null;
 }
 
 interface ICredentials {
@@ -26,7 +27,6 @@ interface IAuthContext {
   signIn(credentials: ICredentials): Promise<void>;
   signOut(): void;
   useAuth(): IAuthContext;
-  verfyRole(): number;
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -35,11 +35,13 @@ const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<IAuthState>(() => {
     const token = localStorage.getItem('@api-mind:token');
     const user = localStorage.getItem('@api-mind:user');
+    const userLevel = Number(localStorage.getItem('@api-mind:userLevel'));
 
     if(token && user){
       return {
         token, 
-        user: JSON.parse(user) 
+        user: JSON.parse(user),
+        userLevel, 
       };
     }
 
@@ -51,31 +53,26 @@ const AuthProvider: React.FC = ({ children }) => {
       email, cpf, password,
     });
 
-    const {token, user} = response.data;
+    const {token, user, userLevel} = response.data;
+
 
     localStorage.setItem('@api-mind:token', token);
     localStorage.setItem('@api-mind:user', JSON.stringify(user));
+    localStorage.setItem('@api-mind:userLevel', userLevel);
 
-    setData({ token, user });
+    setData({ token, user, userLevel });
   }, []);
 
   const signOut = useCallback(() => {
     localStorage.removeItem('@api-mind:token');
     localStorage.removeItem('@api-mind:user');
+    localStorage.removeItem('@api-mind:userLevel');
 
     setData({} as IAuthState);
   }, []);
 
-  const verfyRole = useCallback(() => {
-    const { user } = data;
-
-    const level = user.roles.map(role => role.level);
-
-    return level[0];
-  },[data])
-
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, useAuth, signOut, verfyRole }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, useAuth, signOut }}>
       {children}
     </AuthContext.Provider>
   );

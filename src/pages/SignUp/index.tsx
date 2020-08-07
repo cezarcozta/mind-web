@@ -9,6 +9,7 @@ import InputImage from '../../components/InputImage';
 import './styles.css';
 import { Link } from 'react-router-dom';
 import api from '../../services/api-rbac';
+import { FiLogIn } from 'react-icons/fi';
 
 interface FormData {
   name: string;
@@ -27,8 +28,8 @@ const SignUp: React.FC = () => {
     <>
       <div className="container">
         <div id="main">
-          <aside id="icon">
-            <img src={img} alt="Entrar" />
+        <aside id="icon">
+            <FiLogIn size={150}/>
           </aside>
           <aside id="signup">
             <h1>SIGN UP</h1>

@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
+import { FiLogIn } from 'react-icons/fi';
 
 import { useAuth } from '../../hooks/auth';
-
-import img from '../../assets/background.png'
 
 import Input from '../../components/Input'
 
@@ -42,7 +41,7 @@ const SignIn: React.FC = () => {
             <Link to="/signup">Cadastrar</Link>
           </aside>
           <aside id="icon">
-            <img src={img} alt="Entrar" />
+            <FiLogIn size={150}/>
           </aside>
         </div>
       </div>

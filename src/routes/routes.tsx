@@ -4,23 +4,29 @@ import { useAuth } from '../hooks/auth';
 
 interface IRoute extends RouteProps {
   isPrivate?: boolean;
-  level?: number;
   component: React.ComponentType;
 }
 
 const Route: React.FC<IRoute> = ({ isPrivate = false, component: Component, ...rest }) => {
   const { user } = useAuth();
+  
+  //console.log(isLevel);
 
   return (
    <ReactDOMRoute 
     {...rest}
-    
     render={() => {
-      return isPrivate === !!user ? (
+
+      // return isLevel === 1 ? (
+      //   <Component />
+      // ) : (
+      //   <Component />
+      // );
+      return ' ' ? (
         <Component />
       ) : (
         <Redirect to={{
-          pathname: isPrivate ? '/' : '/admin-dashboard'}} 
+          pathname: !!user ? '/' : '/admin-dashboard'}} 
         />
       )
     }}
