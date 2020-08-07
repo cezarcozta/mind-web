@@ -4,7 +4,7 @@ import api from '../services/api-rbac';
 
 interface IAuthState {
   token: string;
-  user: object;
+  user: User;
 }
 
 interface ICredentials {
@@ -13,11 +13,20 @@ interface ICredentials {
   password: string;
 }
 
+interface Roles {
+  level: number;
+}
+
+interface User {
+  roles: Roles[];
+}
+
 interface IAuthContext {
-  user: object;
+  user: User;
   signIn(credentials: ICredentials): Promise<void>;
   signOut(): void;
   useAuth(): IAuthContext;
+  verfyRole(): number;
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -57,8 +66,16 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({} as IAuthState);
   }, []);
 
+  const verfyRole = useCallback(() => {
+    const { user } = data;
+
+    const level = user.roles.map(role => role.level);
+
+    return level[0];
+  },[data])
+
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, useAuth, signOut }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, useAuth, signOut, verfyRole }}>
       {children}
     </AuthContext.Provider>
   );
