@@ -1,0 +1,36 @@
+#main {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#signin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#signin form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#signin input {
+  border-radius: 6px;
+  margin-bottom: 10px;
+  color: #313131;
+}
+
+#signin button {
+  display: flex;
+  border-radius: 6px;
+  background: #313131;
+  width: 32rem;
+  padding: 5px;
+}
+
+#signin a {
+  margin: 10px auto;
+  text-decoration: none;
+}
