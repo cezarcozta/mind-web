@@ -2,10 +2,19 @@ import React, { createContext, useCallback, useState, useContext } from 'react';
 
 import api from '../services/api-rbac';
 
+interface IUser {
+  name: string;
+  image: File,
+  email: string;
+  cpf: string;
+  Roles: {
+    level: number;
+  }
+}
+
 interface IAuthState {
   token: string;
-  user: User;
-  userLevel: number | null;
+  user: IUser;
 }
 
 interface ICredentials {
@@ -14,16 +23,8 @@ interface ICredentials {
   password: string;
 }
 
-interface Roles {
-  level: number;
-}
-
-interface User {
-  roles: Roles[];
-}
-
 interface IAuthContext {
-  user: User;
+  user: IUser;
   signIn(credentials: ICredentials): Promise<void>;
   signOut(): void;
   useAuth(): IAuthContext;
@@ -60,7 +61,7 @@ const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem('@api-mind:user', JSON.stringify(user));
     localStorage.setItem('@api-mind:userLevel', userLevel);
 
-    setData({ token, user, userLevel });
+    setData({ token, user });
   }, []);
 
   const signOut = useCallback(() => {

@@ -1,7 +1,5 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import { Form } from '@unform/web';
-
-import img from '../../assets/background.png';
 
 import Input from '../../components/Input'
 import InputImage from '../../components/InputImage';
@@ -11,18 +9,27 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api-rbac';
 import { FiLogIn } from 'react-icons/fi';
 
+import { FormHandles } from '@unform/core';
+
 interface FormData {
   name: string;
   cpf: string;
   email: string;
-  image: string;
+  image: File;
   password: string;
 }
 const SignUp: React.FC = () => {
-  const handleSubmit = useCallback(async (data: FormData) => {
-    await api.post('users',{
-      data,
-    })
+const [user, setUser] = useState<FormData>();
+
+  const formRef = useRef<FormHandles>(null);
+
+  const handleSubmit = useCallback(async ({ name, cpf, email, image, password }: FormData) => {
+    console.log(image);
+    const response = await api.post('users',{
+      name, cpf, email, image, password
+    });
+
+    setUser(response.data);
   }, [])
   return (
     <>
@@ -34,9 +41,9 @@ const SignUp: React.FC = () => {
           <aside id="signup">
             <h1>SIGN UP</h1>
             
-            <Form onSubmit={handleSubmit}>
-              <label htmlFor="profile-img"/>Imagem de Perfil
-              <InputImage name="image" type="file" id="profile-img"/>
+            <Form ref={formRef} onSubmit={handleSubmit}>
+              <label htmlFor="image"/>Imagem de Perfil
+              <InputImage name="image" />
 
               <Input name="name" type="text" placeholder="Nome Completo"/>
               <Input name ="cpf" type="text" placeholder="CPF"/>

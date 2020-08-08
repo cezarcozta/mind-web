@@ -28,3 +28,9 @@
   width: 38rem;
   padding: 5px;
 }
+
+#signup a {
+  margin: 10px auto;
+  text-decoration: none;
+  color: #c4c4c4;
+}
