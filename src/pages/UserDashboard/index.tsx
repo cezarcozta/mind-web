@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Header from '../../components/Header';
 
 import { FiUser, FiMail, FiSettings, FiGrid } from 'react-icons/fi';
 
 import { useAuth } from '../../hooks/auth';
-
-import api from '../../services/api-rbac';
 
 import './styles.css';
 
@@ -23,18 +21,7 @@ interface IUser {
 }
 
 const UserDashboard: React.FC = () => {
-  //onst [userCurrent, setUserCurrent] = useState<IUser>();
   const { user } = useAuth();
-
-  // useEffect(() => {
-  //   async function loadUser(): Promise<void>{
-  //     const response = await api.get(`/users/${user.id}`);
-
-  //     setUserCurrent(response.data);
-  //   }
-
-  //   loadUser();
-  // }, [user.id]);
 
   return (
     <>
@@ -55,8 +42,8 @@ const UserDashboard: React.FC = () => {
             </ul>
           </main>
           <footer>
-            <button>
-              <FiSettings size={35} />
+            <button type="button">
+              <FiSettings size={35} />Editar
             </button>
           </footer>
         </div>

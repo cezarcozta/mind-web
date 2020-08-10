@@ -16,6 +16,12 @@
   background: #313131;
 
   border: 1px solid #313131;
+
+  transition: 0.2s;
+}
+
+#icon button:hover {
+  opacity: 0.6;
 }
 
 #avatar {

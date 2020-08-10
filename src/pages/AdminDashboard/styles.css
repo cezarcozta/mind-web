@@ -17,9 +17,19 @@
   border-radius: 50%;
 }
 
-#admin-content p{
+#admin-content button{
   display: flex;
   align-items: center;
+
+  color: #313131;
+  border: 1px solid #c4c4c4;
+  background: #c4c4c4;
+
+  transition: 0.2s;
+}
+
+#admin-content button:hover{
+  opacity: 0.6;
 }
 
 #admin-content li{

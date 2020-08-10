@@ -23,14 +23,30 @@
 
 #signup button {
   display: flex;
+
   border-radius: 6px;
-  background: #313131;
+  border: 1px solid #c4c4c4;
+  background: #c4c4c4;
+  color: #313131;
+  
   width: 38rem;
-  padding: 5px;
+  padding: 0.5rem;
+
+  transition: 0.2s;
+}
+
+#signup button:hover {
+  opacity: 0.6;
 }
 
 #signup a {
   margin: 10px auto;
   text-decoration: none;
   color: #c4c4c4;
+
+  transition: 0.2s;
+}
+
+#signup a:hover {
+  opacity: 0.6;
 }

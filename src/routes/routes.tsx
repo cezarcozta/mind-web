@@ -19,17 +19,13 @@ const Route: React.FC<IRoute> = ({ level = 0, component: Component, ...rest }) =
    <ReactDOMRoute 
     {...rest}
     render={() => {
-      if(!user || level === 0){
-        return <SignIn />;
-      }else{
-        if(user && level === 1) {
-          return <UserDashboard />;
-        }
-  
-        if(user && level === 999){
-          return <AdminDashboard />;
-        }
-      }
+      if(!user) return <Component />;
+
+      if(!!user && level === 999) return <AdminDashboard />;
+
+      if(!!user && level === 1) return <UserDashboard />;
+
+      if(!user && !level) return <SignIn />;
     }}
   />
   );

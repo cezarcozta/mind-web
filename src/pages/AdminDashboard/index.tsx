@@ -44,14 +44,14 @@ const AdminDashboard: React.FC = () => {
                   <li><FiMail size={35} />{user.email}</li>
                 </ul>
 
-                <p>
+                <button>
                   <FiSettings size={25} />
                   Editar
-                </p>
-                <p>
+                </button>
+                <button>
                   <FiToggleLeft size={25} />
                   Desativar
-                </p>
+                </button>
               </div>
             ))}
           </main>
