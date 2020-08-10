@@ -12,7 +12,11 @@ interface IRoute extends RouteProps {
   component: React.ComponentType;
 }
 
-const Route: React.FC<IRoute> = ({ level = 0, component: Component, ...rest }) => {
+const Route: React.FC<IRoute> = ({ 
+  level = 0, 
+  component: Component, 
+  ...rest 
+}) => {
   const {user} = useAuth();
 
   return (
