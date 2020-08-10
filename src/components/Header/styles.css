@@ -1,7 +1,17 @@
-/* #header {
-  flex: 1;
+#header {
+  display: flex;
+
   justify-content: space-around;
-} */
+  align-items: center;
+}
+
+#header aside img {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 50%;
+}
+
 #icon button{
   background: #313131;
 

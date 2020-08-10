@@ -1,34 +1,35 @@
 import React from 'react';
-import { RouteProps, Route as ReactDOMRoute, Redirect } from 'react-router-dom';
+import { RouteProps, Route as ReactDOMRoute } from 'react-router-dom';
 import { useAuth } from '../hooks/auth';
 
+import AdminDashboard from '../pages/AdminDashboard';
+import UserDashboard from '../pages/UserDashboard';
+
+import SignIn from '../pages/SignIn';
+
 interface IRoute extends RouteProps {
-  isPrivate?: boolean;
+  level?: number;
   component: React.ComponentType;
 }
 
-const Route: React.FC<IRoute> = ({ isPrivate = false, component: Component, ...rest }) => {
-  const { user } = useAuth();
-  
-  //console.log(isLevel);
+const Route: React.FC<IRoute> = ({ level = 0, component: Component, ...rest }) => {
+  const {user} = useAuth();
 
   return (
    <ReactDOMRoute 
     {...rest}
     render={() => {
-
-      // return isLevel === 1 ? (
-      //   <Component />
-      // ) : (
-      //   <Component />
-      // );
-      return ' ' ? (
-        <Component />
-      ) : (
-        <Redirect to={{
-          pathname: !!user ? '/' : '/admin-dashboard'}} 
-        />
-      )
+      if(!user || level === 0){
+        return <SignIn />;
+      }else{
+        if(user && level === 1) {
+          return <UserDashboard />;
+        }
+  
+        if(user && level === 999){
+          return <AdminDashboard />;
+        }
+      }
     }}
   />
   );
